@@ -1474,7 +1474,8 @@ function showRes(){go('results');const d=RD[S.type];document.getElementById('res
 function enterApp(){go('app');renderDeep();renderSG();initBanner();navTo('home')}
 
 /* ─── 앱 네비 ─── */
-function navTo(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('on'));const pg=document.getElementById('pg-'+p);if(pg)pg.classList.add('on');const ord=['curation','community','home','search','my'];const ni=document.querySelectorAll('.nav-item');const idx=ord.indexOf(p);if(idx>=0&&ni[idx])ni[idx].classList.add('on');if(p==='my')renderCal()}
+function navTo(p){
+  history.pushState({screen:'app', page:p},'',location.pathname+'#'+p);document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('on'));const pg=document.getElementById('pg-'+p);if(pg)pg.classList.add('on');const ord=['curation','community','home','search','my'];const ni=document.querySelectorAll('.nav-item');const idx=ord.indexOf(p);if(idx>=0&&ni[idx])ni[idx].classList.add('on');if(p==='my')renderCal()}
 function toggleDrw(){document.getElementById('drw').classList.toggle('on');document.getElementById('drw-ov').classList.toggle('on')}
 function closeDrw(){document.getElementById('drw').classList.remove('on');document.getElementById('drw-ov').classList.remove('on')}
 
@@ -1494,8 +1495,14 @@ function stag(el){document.querySelectorAll('.stag').forEach(t=>t.classList.remo
 function calTab(el){document.querySelectorAll('.cal-vtab').forEach(t=>t.classList.remove('on'));el.classList.add('on')}
 
 /* ─── 서브페이지 ─── */
-function openSub(n){go(n);if(n==='calendar')setTimeout(renderCal,80);if(n==='myfeed')renderFeed('1')}
-function closeSub(){go('app')}
+function openSub(n){
+  go(n);
+  if(n==='calendar')setTimeout(renderCal,80);
+  if(n==='myfeed')renderFeed('1');
+}
+function closeSub(){
+  history.back(); // 뒤로가기로 자연스럽게 이동
+}
 
 /* ─── 피드 ─── */
 function renderFeed(type){const z=document.getElementById('feed-zone'),cls=['g-deep','g-rose','g-sky','g-p','g-warm','g-mix'];if(type==='1'){z.style.padding='0 var(--pad-h)';z.innerHTML=cls.map(c=>`<div style="height:clamp(170px,46vw,210px);border-radius:var(--r);margin-bottom:clamp(7px,2vw,9px);overflow:hidden" class="${c}"></div>`).join('')}else if(type==='2'){z.style.padding='0';z.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">${cls.map(c=>`<div style="aspect-ratio:1;overflow:hidden" class="${c}"></div>`).join('')}</div>`}else{z.style.padding='0';z.innerHTML=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">${cls.concat(cls).map(c=>`<div style="aspect-ratio:1;overflow:hidden" class="${c}"></div>`).join('')}</div>`}}
@@ -1533,7 +1540,28 @@ const AVCHARS=['✦','🌿','🌙','◈','🕊','🌊','✿','⟡'];let avIdx=0;
 function cycleAv(){avIdx=(avIdx+1)%AVCHARS.length;const c=AVCHARS[avIdx];document.getElementById('my-av').textContent=c;document.getElementById('drw-av').textContent=c}
 
 /* ─── 초기화 ─── */
-window.addEventListener('DOMContentLoaded',()=>{initSv();renderSG();setTimeout(initBanner,150);renderCal()});
+window.addEventListener('DOMContentLoaded',()=>{initSv();renderSG();setTimeout(initBanner,150);renderCal()// 안드로이드 뒤로가기 버튼 / iOS 스와이프 뒤로가기 지원
+window.addEventListener('popstate', function(e){
+  if(e.state && e.state.screen){
+    const id = e.state.screen;
+    document.querySelectorAll('.scr').forEach(s=>{
+      s.classList.remove('on');
+      s.style.removeProperty('display');
+    });
+    const t = document.getElementById('s-'+id);
+    if(t) t.classList.add('on');
+  } else {
+    // 히스토리 없으면 스플래시로
+    document.querySelectorAll('.scr').forEach(s=>{
+      s.classList.remove('on');
+      s.style.removeProperty('display');
+    });
+    document.getElementById('s-splash').classList.add('on');
+  }
+});
+
+// 초기 히스토리 세팅
+history.replaceState({screen:'splash'},'',location.pathname+'#splash');});
 </script>
 </body>
 </html>
