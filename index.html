@@ -282,8 +282,8 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
 /* ✏️ EDIT: Book */
 .book-card{min-width:clamp(100px,26vw,120px);flex-shrink:0;cursor:pointer;transition:transform 0.13s cubic-bezier(.34,1.56,.64,1)}
 .book-card:active{transform:scale(0.93) rotate(-1deg)}
-.book-cover{width:100%;aspect-ratio:3/4;border-radius:var(--r-sm);overflow:hidden;margin-bottom:7px;box-shadow:3px 5px 16px rgba(22,18,43,0.17)}
-.book-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.book-cover{width:100%;aspect-ratio:3/4;border-radius:var(--r-sm);overflow:hidden;margin-bottom:7px;box-shadow:3px 5px 16px rgba(22,18,43,0.17);position:relative}
+.book-cover img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0}
 .book-fill{width:100%;height:100%}
 .book-ttl{font-size:var(--font-sm);font-weight:500;color:var(--ink);line-height:1.35}
 .book-sub{font-size:var(--font-xs);color:var(--ink3);margin-top:2px}
@@ -302,7 +302,7 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
 .ppl-card{min-width:clamp(140px,38vw,165px);flex-shrink:0;border-radius:var(--r);overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-sm);cursor:pointer;transition:transform 0.13s cubic-bezier(.34,1.56,.64,1)}
 .ppl-card:active{transform:scale(0.96)}
 .ppl-cover{height:clamp(86px,23vw,108px);position:relative;overflow:hidden}
-.ppl-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.ppl-cover img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0}
 .ppl-fill{width:100%;height:100%}
 .ppl-play{position:absolute;bottom:8px;right:8px;width:clamp(24px,6vw,30px);height:clamp(24px,6vw,30px);border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;font-size:var(--font-xs);color:var(--p);box-shadow:0 2px 8px rgba(0,0,0,0.18)}
 .ppl-body{padding:clamp(9px,2.5vw,11px)}
@@ -529,7 +529,10 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
     <div class="sv-prog-lbl" id="sv1-lbl">1 / 10</div>
   </div>
   <div class="scroll"><div class="sv-body" id="sv1-body"></div></div>
-  <div class="sv-nav"><button class="sv-next" id="sv1-btn" onclick="sv1Next()" disabled>다음</button></div>
+  <div class="sv-nav" style="display:flex;gap:10px">
+    <button class="sv-next" id="sv1-back" onclick="sv1Prev()" style="flex:1;background:var(--bg2);color:var(--ink2);box-shadow:none;border:1px solid var(--line2)">이전</button>
+    <button class="sv-next" id="sv1-btn" onclick="sv1Next()" disabled style="flex:2">다음</button>
+  </div>
 </div>
 
 <!-- SHOWROOM -->
@@ -565,7 +568,10 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
     <div class="sv-prog-lbl" id="sv2-lbl">1 / 5</div>
   </div>
   <div class="scroll"><div class="sv-body" id="sv2-body"></div></div>
-  <div class="sv-nav"><button class="sv-next" id="sv2-btn" onclick="sv2Next()" disabled>다음</button></div>
+  <div class="sv-nav" style="display:flex;gap:10px">
+    <button class="sv-next" onclick="sv2Prev()" style="flex:1;background:var(--bg2);color:var(--ink2);box-shadow:none;border:1px solid var(--line2)">이전</button>
+    <button class="sv-next" id="sv2-btn" onclick="sv2Next()" disabled style="flex:2">다음</button>
+  </div>
 </div>
 
 <!-- RESULTS -->
@@ -638,17 +644,17 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
       <div class="banner" id="banner">
         <div class="banner-track" id="bn-track">
           <div class="banner-slide">
-            <div class="b-fill g-deep"></div><!-- ✏️ 이미지로 바꾸려면: <div class="b-fill"><img src="이미지URL"></div> -->
+            <div class="b-fill"><img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=500&auto=format&fit=crop&q=60" style="width:100%;height:100%;object-fit:cover"></div>
             <div class="b-grad"></div>
             <div class="b-content"><div class="b-cat">EVENT</div><div class="b-title">3월 취향 챌린지<br>지금 시작해요</div><div class="b-cta">참여하기 →</div></div>
           </div>
           <div class="banner-slide">
-            <div class="b-fill g-mix"></div>
+            <div class="b-fill"><img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=500&auto=format&fit=crop&q=60" style="width:100%;height:100%;object-fit:cover"></div>
             <div class="b-grad"></div>
             <div class="b-content"><div class="b-cat">NEW</div><div class="b-title">봄 실행안<br>출시됐어요</div><div class="b-cta">보러가기 →</div></div>
           </div>
           <div class="banner-slide">
-            <div class="b-fill g-rose"></div>
+            <div class="b-fill"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500&auto=format&fit=crop&q=60" style="width:100%;height:100%;object-fit:cover"></div>
             <div class="b-grad"></div>
             <div class="b-content"><div class="b-cat">BOOK</div><div class="b-title">2025 Vol.1<br>필진 신청 중</div><div class="b-cta">신청하기 →</div></div>
           </div>
@@ -661,19 +667,19 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
         <div class="sec-hd"><div class="sec-ttl">실천글</div><div class="sec-more">모두 보기</div></div>
         <div class="hscroll">
           <div class="pcard">
-            <div class="pcard-img"><div class="pcard-fill g-aurora"></div></div><!-- ✏️ 이미지: <div class="pcard-img"><img src="URL" style="width:100%;height:100%;object-fit:cover"></div> -->
+            <div class="pcard-img"><img src="https://images.unsplash.com/vector-1742739891335-8c946e23aa48?w=500&auto=format&fit=crop&q=60" style="width:100%;height:100%;object-fit:cover"></div>
             <div class="pcard-body"><div class="pcard-cat">FASHION</div><div class="pcard-ttl">오늘 옷에서 나답다는 요소 1개 찾기</div><div class="pcard-meta">5분 · 취향 발견</div></div>
           </div>
           <div class="pcard">
-            <div class="pcard-img"><div class="pcard-fill g-rose"></div></div>
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=500&auto=format&fit=crop&q=60" style="width:100%;height:100%;object-fit:cover"></div>
             <div class="pcard-body"><div class="pcard-cat">INTERIOR</div><div class="pcard-ttl">저녁에 천장등 끄고 1시간 지내보기</div><div class="pcard-meta">오늘 바로 · 공간 실험</div></div>
           </div>
           <div class="pcard">
-            <div class="pcard-img"><div class="pcard-fill g-sky"></div></div>
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1479064555552-3ef4979f8908?w=500&auto=format&fit=crop&q=60" style="width:100%;height:100%;object-fit:cover"></div>
             <div class="pcard-body"><div class="pcard-cat">FASHION</div><div class="pcard-ttl">액세서리 빼고 거울 앞에 서보기</div><div class="pcard-meta">3분 · 비율 실험</div></div>
           </div>
           <div class="pcard">
-            <div class="pcard-img"><div class="pcard-fill g-warm"></div></div>
+            <div class="pcard-img"><img src="https://images.unsplash.com/photo-1641232458416-feace752b346?w=500&auto=format&fit=crop&q=60" style="width:100%;height:100%;object-fit:cover"></div>
             <div class="pcard-body"><div class="pcard-cat">INTERIOR</div><div class="pcard-ttl">소파에서 가장 오래 보이는 곳 정리</div><div class="pcard-meta">15분 · 공간 정돈</div></div>
           </div>
         </div>
@@ -689,15 +695,15 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
         <div class="sec-hd"><div class="sec-ttl">Book</div><div class="sec-more">신청하기</div></div>
         <div class="hscroll">
           <div class="book-card">
-            <div class="book-cover"><div class="book-fill g-deep"></div></div><!-- ✏️ 이미지: <div class="book-cover"><img src="URL"></div> -->
+            <div class="book-cover"><img src="https://images.unsplash.com/photo-1538035323718-63409b754ce7?w=500&auto=format&fit=crop&q=60"></div>
             <div class="book-ttl">INNERF Vol.1</div><div class="book-sub">2025 · 봄호</div>
           </div>
           <div class="book-card">
-            <div class="book-cover"><div class="book-fill g-mix"></div></div>
+            <div class="book-cover"><img src="https://images.unsplash.com/photo-1521727696769-849d83dd59db?w=600&auto=format&fit=crop&q=60"></div>
             <div class="book-ttl">취향의 언어</div><div class="book-sub">2025 · 겨울호</div>
           </div>
           <div class="book-card">
-            <div class="book-cover"><div class="book-fill g-rose"></div></div>
+            <div class="book-cover"><img src="https://images.unsplash.com/photo-1619164816991-22d393238d8f?w=600&auto=format&fit=crop&q=60"></div>
             <div class="book-ttl">나만의 공간</div><div class="book-sub">2024 · 연간</div>
           </div>
           <div class="book-card">
@@ -721,15 +727,15 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
         <div class="sec-hd"><div class="sec-ttl">사람들</div><div class="sec-more">전체 듣기</div></div>
         <div class="hscroll">
           <div class="ppl-card">
-            <div class="ppl-cover"><div class="ppl-fill g-deep"></div><div class="ppl-play">▶</div></div><!-- ✏️ 이미지: <div class="ppl-cover"><img src="URL"><div class="ppl-play">▶</div></div> -->
+            <div class="ppl-cover"><img src="https://images.unsplash.com/photo-1611386004186-2f54eea53f11?w=600&auto=format&fit=crop&q=60"><div class="ppl-play">▶</div></div>
             <div class="ppl-body"><div class="ppl-ep">EP.24</div><div class="ppl-ttl">취향을 언어로 만든다는 것</div><div class="ppl-host">@min_studio</div></div>
           </div>
           <div class="ppl-card">
-            <div class="ppl-cover"><div class="ppl-fill g-p"></div><div class="ppl-play">▶</div></div>
+            <div class="ppl-cover"><img src="https://images.unsplash.com/photo-1597154036334-409c70ce03df?w=600&auto=format&fit=crop&q=60"><div class="ppl-play">▶</div></div>
             <div class="ppl-body"><div class="ppl-ep">EP.23</div><div class="ppl-ttl">내 방이 나를 설명한다</div><div class="ppl-host">@room.jy</div></div>
           </div>
           <div class="ppl-card">
-            <div class="ppl-cover"><div class="ppl-fill g-rose"></div><div class="ppl-play">▶</div></div>
+            <div class="ppl-cover"><img src="https://images.unsplash.com/photo-1676380362680-85260af12dca?w=600&auto=format&fit=crop&q=60"><div class="ppl-play">▶</div></div>
             <div class="ppl-body"><div class="ppl-ep">EP.22</div><div class="ppl-ttl">소비 실패를 줄이는 방법</div><div class="ppl-host">@e.style</div></div>
           </div>
         </div>
@@ -990,9 +996,9 @@ const CARDS=[
 
 /* ✏️ EDIT: 딥한 글 데이터 — img에 이미지 URL 넣으세요 */
 const DEEP_ARTS=[
-  {cat:'FASHION',ttl:'미니멀 룩이 실패하는 이유: 색이 아니라 비율이 무너졌기 때문이다',desc:'기본템이라도 실루엣이 안 맞으면 어설퍼 보인다.',cls:'g-deep',img:''},
-  {cat:'INTERIOR',ttl:'왜 어떤 사람은 미니멀 공간에서 더 편안함을 느낄까',desc:'잡음이 적은 상태를 좋아하는 것일 수 있다.',cls:'g-sky',img:''},
-  {cat:'FASHION',ttl:'검정 옷이 잘 맞는 게 아니라 정돈감이 필요한 사람일 수 있다',desc:'색이 아닌 상태에 대해 다시 생각해볼 때.',cls:'g-p',img:''}
+  {cat:'FASHION',ttl:'미니멀 룩이 실패하는 이유: 색이 아니라 비율이 무너졌기 때문이다',desc:'기본템이라도 실루엣이 안 맞으면 어설퍼 보인다.',cls:'g-deep',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&auto=format&fit=crop&q=60'},
+  {cat:'INTERIOR',ttl:'왜 어떤 사람은 미니멀 공간에서 더 편안함을 느낄까',desc:'잡음이 적은 상태를 좋아하는 것일 수 있다.',cls:'g-sky',img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&auto=format&fit=crop&q=60'},
+  {cat:'FASHION',ttl:'검정 옷이 잘 맞는 게 아니라 정돈감이 필요한 사람일 수 있다',desc:'색이 아닌 상태에 대해 다시 생각해볼 때.',cls:'g-p',img:'https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&auto=format&fit=crop&q=60'}
 ];
 
 const RD={
@@ -1019,7 +1025,7 @@ function go(id){
   const t=document.getElementById('s-'+id);
   if(!t)return;
   t.classList.add('on');
-  history.pushState({screen:id},'',location.pathname+'#'+id);
+  try{history.pushState({screen:id},'',location.pathname+'#'+id)}catch(e){}
 }
 
 /* ── 설문1 ── */
@@ -1060,6 +1066,14 @@ function renderQ1(){
 }
 function onSlide(el,id){const v=el.value;S.sv1[id]=parseInt(v);el.style.setProperty('--val',v*10+'%');const lbl=document.getElementById('sv-val');if(lbl)lbl.textContent=v;document.getElementById('sv1-btn').disabled=false}
 function sv1Next(){if(si<Q1.length-1){si++;renderQ1()}else{calcSv1();go('showroom');initSR()}}
+function sv1Prev(){
+  if(si>0){si--;renderQ1()}
+  else{go('splash')}
+}
+function updateSv1BackBtn(){
+  const b=document.getElementById('sv1-back');
+  if(b){b.textContent=si===0?'처음으로':'이전'}
+}
 function calcSv1(){let a=0,b=0,c=0;Q1.forEach(q=>{const ans=S.sv1[q.id];if(ans===undefined)return;if(q.type==='choice'||q.type==='img'){const sc=q.opts[ans].s;a+=sc.A||0;b+=sc.B||0;c+=sc.C||0}else if(q.type==='scale'){const v=ans;if(v<=3)a+=2;else if(v<=7)b+=2;else c+=2}});S._s1={a,b,c}}
 
 /* ── 쇼룸 ── */
@@ -1083,13 +1097,17 @@ let si2=0;
 function initSv2(){si2=0;S.sv2={};renderQ2()}
 function renderQ2(){const q=Q2[si2],n=Q2.length;document.getElementById('sv2-fill').style.width=((si2+1)/n*100)+'%';document.getElementById('sv2-lbl').textContent=`${si2+1} / ${n}`;document.getElementById('sv2-btn').textContent=si2===n-1?'결과 보기 ✦':'다음';document.getElementById('sv2-btn').disabled=!S.sv2[q.id];const b=document.getElementById('sv2-body');b.innerHTML='';const w=document.createElement('div');w.innerHTML=`<div class="q-num">Q${si2+1}</div><div class="q-text">${q.text}</div>`;const c=document.createElement('div');c.className='choices';q.opts.forEach((o,i)=>{const el=document.createElement('div');el.className='choice'+(S.sv2[q.id]===i?' sel':'');el.innerHTML=`<div class="c-dot"></div><span>${o.t}</span>`;el.onclick=()=>{b.querySelectorAll('.choice').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');S.sv2[q.id]=i;document.getElementById('sv2-btn').disabled=false};c.appendChild(el)});w.appendChild(c);b.appendChild(w)}
 function sv2Next(){if(si2<Q2.length-1){si2++;renderQ2()}else{calcFinal();showRes()}}
+function sv2Prev(){
+  if(si2>0){si2--;renderQ2()}
+  else{go('showroom');initSR()}
+}
 function calcFinal(){let a=S._s1?.a||0,b=S._s1?.b||0,c=S._s1?.c||0;Q2.forEach(q=>{const ans=S.sv2[q.id];if(ans===undefined)return;const sc=q.opts[ans].s;a+=sc.A||0;b+=sc.B||0;c+=sc.C||0});const yes=S.sr.filter(r=>r.r==='yes').length,idk=S.sr.filter(r=>r.r==='idk').length;if(yes>8)c+=3;else if(yes>4)b+=2;else a+=2;if(idk>8)a+=3;const tot=a+b+c||1;if(c/tot>0.45){S.type='C';S.score=65+Math.round(c/tot*30)}else if(b/tot>0.4){S.type='B';S.score=40+Math.round(b/tot*25)}else{S.type='A';S.score=15+Math.round((b+c)/tot*20)};S.unlocked=S.score>=60}
 function showRes(){go('results');const d=RD[S.type];document.getElementById('res-badge').textContent=d.badge;document.getElementById('res-num').textContent=S.score;document.getElementById('res-ring').style.setProperty('--pct',S.score+'%');document.getElementById('res-name').textContent=d.name;document.getElementById('res-desc').textContent=d.desc;document.getElementById('res-aura').className=`res-aura ${d.aura}`;const kws=document.getElementById('res-kws');kws.innerHTML='';d.kws.forEach(k=>{const p=document.createElement('span');p.className='tag tag-p';p.textContent=k;kws.appendChild(p)});const sec=document.getElementById('res-section');sec.innerHTML='';d.cards.forEach((cd,i)=>{const el=document.createElement('div');el.className='res-card';el.style.animationDelay=(i*0.12)+'s';el.innerHTML=`<div class="res-card-hd"><div class="res-card-ico ${cd.bg}">${cd.ico}</div><div class="res-card-ttl">${cd.ttl}</div></div><div class="res-card-body">${cd.body.replace(/\n/g,'<br>')}</div>`;sec.appendChild(el)})}
 function enterApp(){go('app');renderDeep();renderSG();initBanner();navTo('home')}
 
 /* ── 앱 네비 ── */
 function navTo(p){
-  history.pushState({screen:'app',page:p},'',location.pathname+'#'+p);
+  try{history.pushState({screen:'app',page:p},'',location.pathname+'#'+p)}catch(e){}
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('on'));
   const pg=document.getElementById('pg-'+p);if(pg)pg.classList.add('on');
@@ -1150,7 +1168,7 @@ function calTab(el){document.querySelectorAll('.cal-vtab').forEach(t=>t.classLis
 
 /* ── 서브페이지 ── */
 function openSub(n){go(n);if(n==='calendar')setTimeout(renderCal,80);if(n==='myfeed')renderFeed('1')}
-function closeSub(){history.back()}
+function closeSub(){try{history.back()}catch(e){go('app')}}
 
 /* ── 피드 ── */
 function renderFeed(type){const z=document.getElementById('feed-zone'),cls=['g-deep','g-rose','g-sky','g-p','g-warm','g-mix'];if(type==='1'){z.style.padding='0 var(--pad-h)';z.innerHTML=cls.map(c=>`<div style="height:clamp(170px,46vw,210px);border-radius:var(--r);margin-bottom:clamp(7px,2vw,9px);overflow:hidden" class="${c}"></div>`).join('')}else if(type==='2'){z.style.padding='0';z.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">${cls.map(c=>`<div style="aspect-ratio:1;overflow:hidden" class="${c}"></div>`).join('')}</div>`}else{z.style.padding='0';z.innerHTML=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">${cls.concat(cls).map(c=>`<div style="aspect-ratio:1;overflow:hidden" class="${c}"></div>`).join('')}</div>`}}
@@ -1223,7 +1241,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  history.replaceState({screen:'splash'}, '', location.pathname + '#splash');
+  try{history.replaceState({screen:'splash'}, '', location.pathname + '#splash')}catch(e){}
 });
 </script>
 </body>
